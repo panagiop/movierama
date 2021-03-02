@@ -1,0 +1,27 @@
+<ul class="list-group list-group-horizontal">
+  <li class="list-group-item">Sort by:</li>
+  <li class="list-group-item" (click)="orderBy('likes')">
+    <i
+      *ngIf="field == 'likes'"
+      [ngClass]="{'gray-icon fa': true, 'fa-sort-asc': direction == -1, 'fa-sort-desc': direction == 1}"
+      aria-hidden="true"
+    ></i>
+    Likes
+  </li>
+  <li class="list-group-item" (click)="orderBy('hates')">
+    <i
+      *ngIf="field == 'hates'"
+      [ngClass]="{'gray-icon fa': true, 'fa-sort-asc': direction == -1, 'fa-sort-desc': direction == 1}"
+      aria-hidden="true"
+    ></i>
+    Hates
+  </li>
+  <li class="list-group-item" (click)="orderBy('createdAt')">
+    <i
+      *ngIf="field == 'createdAt'"
+      [ngClass]="{'gray-icon fa': true, 'fa-sort-asc': direction == -1, 'fa-sort-desc': direction == 1}"
+      aria-hidden="true"
+    ></i>
+    Date
+  </li>
+</ul>

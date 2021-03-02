@@ -1,0 +1,15 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.list-group-item:nth-child(1) {
+  border-style: none;
+}
+
+.list-group-item:nth-child(2) {
+  border-left-width: 1px!important;
+}
+
+.list-group-item:hover {
+  cursor: pointer;
+}
