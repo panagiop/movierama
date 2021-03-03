@@ -8,25 +8,23 @@ import { AppComponent } from './app.component';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
 import { SortingComponent } from './components/sorting/sorting.component';
 import { CalculateElapsedTime } from './pipes/calculate-elapsed-time.pipe';
-import { LoginComponent } from './components/login/login.component';
-import { HeaderComponent } from './components/header/header.component';
 
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
+import { HeaderModule } from './components/header/header.module';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		MovieListComponent,
 		SortingComponent,
-		CalculateElapsedTime,
-		LoginComponent,
-		HeaderComponent
+		CalculateElapsedTime
 	],
 	imports: [
+    AppRoutingModule,
 		BrowserModule,
-		AppRoutingModule,
 		HttpClientModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		HeaderModule
 	],
 	providers: [authInterceptorProviders],
 	bootstrap: [AppComponent]

@@ -43,7 +43,8 @@
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
-        "no-prototype-builtins": "off"
+        "no-prototype-builtins": "off",
+        "@typescript-eslint/unbound-method": "off"
       }
     },
     {

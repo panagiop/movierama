@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,7 +10,7 @@ export class HeaderComponent implements OnInit {
 	public isLoggedIn = false;
 	public loggedinUserEmail = '';
 
-	constructor(public authService: AuthService, private router: Router) {}
+	constructor(public authService: AuthService) {}
 
 	ngOnInit(): void {
 		this.isLoggedIn = !!this.authService.getToken();

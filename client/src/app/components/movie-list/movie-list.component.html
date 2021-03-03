@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header class="col-md-12"></app-header>
 <ng-container *ngIf="!movies">
 	<div class="pull-left col-md-12 mt-4">
 		<div class="alert alert-primary" role="alert">
@@ -14,14 +14,25 @@
 	<app-sorting [field]="field" [direction]="direction" (sort)="orderBy($event)">
 	</app-sorting>
 </div>
+<div *ngIf="isLoggedIn" class="pull-left col-md-12 mt-2 mb-4">
+	<button type="button" class="btn btn-success">
+		<span [routerLink]="['/add-movie']">New movie</span>
+	</button>
+</div>
 <ng-container *ngIf="movies">
 	<ng-container *ngFor="let movie of movies">
 		<div class="card mt-4">
 			<h5 class="card-header">{{movie.name}}</h5>
 			<div class="card-body">
 				<p>
-					Posted by <b>{{movie.createdBy?.username}}</b>&nbsp;&nbsp;
-					{{movie.createdAt | calculateElapsedTime}}
+					<span>Posted by</span>
+					<button
+						type="button"
+						class="btn btn-link"
+						(click)="fetchMoviesByUserId(movie.createdBy._id)"
+					>
+						{{movie.createdBy?.username}}</button
+					>&nbsp; {{movie.createdAt | calculateElapsedTime}}
 				</p>
 				<p class="card-text">{{movie.description}}</p>
 				<p

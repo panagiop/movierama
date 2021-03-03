@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Movie } from 'src/app/models/movie';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,42 +12,39 @@ export class MovieListComponent implements OnInit {
 	public movies: any = [];
 	public field = 'createdAt';
 	public direction = 1;
-	public loggedinUser = '';
+	public isLoggedIn = false;
+	public query = '';
 
 	constructor(
 		private apiService: ApiService,
-		public authService: AuthService,
-		private router: Router
+		public authService: AuthService
 	) {}
 
 	ngOnInit(): void {
-		this.fetchMovies();
+		this.isLoggedIn = !!this.authService.getToken();
+		this.query = `?sortBy=${this.field}&dir=${this.direction}`;
+		this.fetchMovies(this.query);
 	}
 
-	fetchMovies(): void {
-		this.apiService
-			.getAllMovies(`?sortBy=${this.field}&dir=${this.direction}`)
-			.subscribe(
-				(movies: Movie[]) => {
-					this.movies = movies;
-				},
-				(err) => {
-					console.log(err);
-				}
-			);
+	fetchMovies(queryParams: string): void {
+		this.apiService.getAllMovies(queryParams).subscribe(
+			(movies: Movie[]) => {
+				this.movies = movies;
+			},
+			(err) => {
+				console.log(err);
+			}
+		);
 	}
 
 	orderBy(sort: { field: string; direction: string }): void {
-		this.apiService
-			.getAllMovies(`?sortBy=${sort.field}&dir=${sort.direction}`)
-			.subscribe(
-				(movies: Movie[]) => {
-					this.movies = movies;
-				},
-				(err) => {
-					console.log(err);
-				}
-			);
+		this.query = `?sortBy=${sort.field}&dir=${sort.direction}`;
+		this.fetchMovies(this.query);
+	}
+
+	fetchMoviesByUserId(userId: string): void {
+		this.query = `?createdBy=${userId}`;
+		this.fetchMovies(this.query);
 	}
 
 	canUserVote(userId?: string, movieCreatedBy?: string): boolean {
@@ -89,7 +85,7 @@ export class MovieListComponent implements OnInit {
 
 	likeMovie(movieId: string = ''): void {
 		this.apiService.likeMovie(movieId).subscribe(
-			() => this.fetchMovies(),
+			() => this.fetchMovies(this.query),
 			(err) => {
 				console.log(err);
 			}
@@ -98,7 +94,7 @@ export class MovieListComponent implements OnInit {
 
 	hateMovie(movieId: string = ''): void {
 		this.apiService.hateMovie(movieId).subscribe(
-			() => this.fetchMovies(),
+			() => this.fetchMovies(this.query),
 			(err) => {
 				console.log(err);
 			}
@@ -107,7 +103,7 @@ export class MovieListComponent implements OnInit {
 
 	resetVote(movieId: string = ''): void {
 		this.apiService.resetVote(movieId).subscribe(
-			() => this.fetchMovies(),
+			() => this.fetchMovies(this.query),
 			(err) => {
 				console.log(err);
 			}

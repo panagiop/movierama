@@ -15,15 +15,19 @@ export class ApiService {
 		return this.http.get<Movie[]>(`${API}movies${queryParams}`);
 	}
 
-  likeMovie(movieId: string): Observable<Movie> {
+	likeMovie(movieId: string): Observable<Movie> {
 		return this.http.put<Movie>(`${API}movies/${movieId}/like`, {});
 	}
 
-  hateMovie(movieId: string): Observable<Movie> {
+	hateMovie(movieId: string): Observable<Movie> {
 		return this.http.put<Movie>(`${API}movies/${movieId}/hate`, {});
 	}
 
 	resetVote(movieId: string): Observable<Movie> {
 		return this.http.put<Movie>(`${API}movies/${movieId}/reset`, {});
+	}
+
+	createMovie(name: string, description: string): Observable<Movie> {
+		return this.http.post<Movie>(`${API}movies`, { name, description });
 	}
 }
