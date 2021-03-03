@@ -51,10 +51,13 @@ export class AuthService {
 	}
 
 	public getUser(): User {
-		return JSON.parse(localStorage.getItem(USER_KEY) || '');
+		return (
+			localStorage.getItem(USER_KEY) &&
+			JSON.parse(localStorage.getItem(USER_KEY) || '')
+		);
 	}
 
-	public tokenExpired(token: string): boolean {
+	public isTokenExpired(token: string): boolean {
 		const expiryDate = JSON.parse(atob(token.split('.')[1])).exp;
 		return Math.floor(new Date().getTime() / 1000) >= expiryDate;
 	}

@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit(): void {
 		const token = this.authService.getToken();
-		if (token && !this.authService.tokenExpired(token)) {
+		if (token && !this.authService.isTokenExpired(token)) {
 			void this.router.navigate(['/']).then().catch();
 		}
 		this.loginForm = this.formBuilder.group({
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
-	get f() {
+	get f(): any {
 		return this.loginForm.controls;
 	}
 
@@ -46,16 +46,18 @@ export class LoginComponent implements OnInit {
 		}
 		this.authService
 			.login({
-				email: this.loginForm.value.email,
-				password: this.loginForm.value.password
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				email: this.loginForm.get('email')?.value,
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				password: this.loginForm.get('password')?.value
 			})
 			.subscribe(
-				(data) => {
+				(data: { token: string; user: Record<string, never> }) => {
 					this.authService.saveToken(data.token);
-          this.authService.saveUser(this.loginForm.value.email);
-					this.router.navigate(['/']);
+					this.authService.saveUser(data.user);
+					void this.router.navigate(['/']).then().catch();
 				},
-				(err) => {
+				(err: { error: { message: string } }) => {
 					this.responseError = err.error.message;
 					setTimeout(() => {
 						this.responseError = '';
