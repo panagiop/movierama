@@ -18,8 +18,8 @@ const generateToken = (payload) =>
     expiresIn: 360000
   });
 
-const login = async (UserModel, username, password) => {
-  const user = await UserModel.findOne({ username });
+const login = async (UserModel, email, password) => {
+  const user = await UserModel.findOne({ email });
   if (!user) {
     throw new Error('Invalid credentials');
   }
@@ -34,7 +34,7 @@ const login = async (UserModel, username, password) => {
     }
   };
   const token = generateToken(payload);
-  return token;
+  return { token, user };
 };
 
 export { encryptPassword, compareToken, verifyToken, generateToken, login };

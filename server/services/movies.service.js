@@ -37,6 +37,7 @@ const getAll = async (MovieModel, queryParams) => {
           as: 'createdBy'
         }
       },
+      { $unwind: '$createdBy' },
       {
         $project: {
           _id: 1,

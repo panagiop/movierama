@@ -1,0 +1,28 @@
+<app-header></app-header>
+<div class="pull-left mt-4 mb-4 col-md-12">
+  <app-sorting
+    [field]="field"
+    [direction]="direction"
+    (sort)="orderBy($event)"
+  >
+  </app-sorting>
+</div>
+<div>
+<ng-container *ngIf="movies">
+  <ng-container *ngFor="let movie of movies">
+    <div class="card mt-4">
+      <h5 class="card-header">{{movie.name}}</h5>
+      <div class="card-body">
+        <p>
+          Posted by <b>{{movie.createdBy?.username}}</b>&nbsp;&nbsp;
+          {{movie.createdAt | calculateElapsedTime}}
+        </p>
+        <p class="card-text">{{movie.description}}</p>
+        <p class="card-text">
+          {{movie.likedBy?.length}} likes | {{movie.hatedBy?.length}} hates
+        </p>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+</div>

@@ -1,28 +1,3 @@
 <div class="container-fluid h-100">
-	<div class="mt-4">
-		<app-sorting
-			[field]="field"
-			[direction]="direction"
-			(sort)="orderBy($event)"
-		>
-		</app-sorting>
-	</div>
-  <ng-container *ngIf="movies">
-    <ng-container *ngFor="let movie of movies">
-      <div class="card mt-4">
-        <h5 class="card-header">{{movie.name}}</h5>
-        <div class="card-body">
-          <p>
-            Posted by <b>{{movie.createdBy.username}}</b>&nbsp;&nbsp;
-            {{calculateNumberOfDaysPassed(movie.createdAt)}}
-          </p>
-          <p class="card-text">{{movie.description}}</p>
-          <p class="card-text">
-            {{movie.likedBy.length}} likes | {{movie.hatedBy.length}} hates
-          </p>
-        </div>
-      </div>
-    </ng-container>
-  </ng-container>
-
+  <router-outlet></router-outlet>
 </div>

@@ -1,5 +1,15 @@
 import { encryptPassword, generateToken } from './auth.service';
 
+const get = async (UserModel, email) => {
+  const user = await UserModel.findOne({ email });
+  if (!user) {
+    const error = new Error('user does not exist');
+    error.statusCode = 401;
+    throw error;
+  }
+  return user;
+};
+
 const create = async (UserModel, email, username, password) => {
   let user = await UserModel.findOne({ email, username });
   if (user) {
@@ -24,4 +34,4 @@ const create = async (UserModel, email, username, password) => {
   return token;
 };
 
-export { create };
+export { get, create };
