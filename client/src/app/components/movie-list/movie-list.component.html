@@ -20,7 +20,7 @@
 	</button>
 </div>
 <ng-container *ngIf="movies">
-	<ng-container *ngFor="let movie of movies">
+	<ng-container *ngFor="let movie of movies; trackBy: trackByMovieId">
 		<div class="card mt-4">
 			<h5 class="card-header">{{movie.name}}</h5>
 			<div class="card-body">
@@ -29,7 +29,7 @@
 					<button
 						type="button"
 						class="btn btn-link"
-						(click)="fetchMoviesByUserId(movie.createdBy._id)"
+						(click)="fetchMoviesByUserId(movie.createdBy?._id)"
 					>
 						{{movie.createdBy?.username}}</button
 					>&nbsp; {{movie.createdAt | calculateElapsedTime}}
@@ -37,11 +37,11 @@
 				<p class="card-text">{{movie.description}}</p>
 				<p
 					*ngIf="authService.getUser()
-            && canUserVote(authService.getUser()._id, movie.createdBy._id)"
+            && canUserVote(authService.getUser()._id, movie.createdBy?._id)"
 					class="card-text"
 				>
 					<ng-container
-						*ngIf="canBeTheFirstToVote(movie.likedBy, movie.hatedBy)"
+						*ngIf="canBeTheFirstToVote(movie.likedBy, movie?.hatedBy)"
 					>
 						Be the first to vote for this movie:
 						<button
@@ -105,7 +105,7 @@
 						>&nbsp; <span> {{movie.hatedBy?.length}} hates</span>&nbsp;
 					</ng-container>
 					<ng-container
-						*ngIf="hasUserLikedTheMovie(authService.getUser()._id, movie.likedBy)"
+						*ngIf="hasUserLikedTheMovie(authService.getUser()._id, movie?.likedBy)"
 					>
 						<span class="pull-right">
 							<span>You like this movie</span>&nbsp; |
@@ -119,7 +119,7 @@
 						</span>
 					</ng-container>
 					<ng-container
-						*ngIf="hasUserHatedTheMovie(authService.getUser()._id, movie.hatedBy)"
+						*ngIf="hasUserHatedTheMovie(authService.getUser()._id, movie?.hatedBy)"
 					>
 						<span class="pull-right">
 							<span>You hate this movie</span>&nbsp; |
@@ -136,7 +136,7 @@
 				<p
 					*ngIf="!authService.getUser()
             || !canUserVote(authService.getUser()
-            && authService.getUser()._id, movie.createdBy._id)"
+            && authService.getUser()?._id, movie.createdBy?._id)"
 					class="card-text"
 				>
 					<span>{{movie.likedBy?.length}} likes</span>&nbsp;&nbsp;

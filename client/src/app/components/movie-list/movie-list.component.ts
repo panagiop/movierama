@@ -42,7 +42,7 @@ export class MovieListComponent implements OnInit {
 		this.fetchMovies(this.query);
 	}
 
-	fetchMoviesByUserId(userId: string): void {
+	fetchMoviesByUserId(userId?: string): void {
 		this.query = `?createdBy=${userId}`;
 		this.fetchMovies(this.query);
 	}
@@ -108,5 +108,9 @@ export class MovieListComponent implements OnInit {
 				console.log(err);
 			}
 		);
+	}
+
+	trackByMovieId(index: number, movie: Movie): any {
+		return movie._id;
 	}
 }

@@ -1,5 +1,5 @@
 export class Movie {
-	_id?: string | '';
+	_id?: string;
 	likedBy?: [];
 	hatedBy?: [];
 	name?: string;
