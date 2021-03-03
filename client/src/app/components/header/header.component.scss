@@ -3,3 +3,10 @@
     cursor: pointer;
   }
 }
+
+.logo {
+  &:hover {
+    cursor: pointer;
+    color: #007bff;
+  }
+}

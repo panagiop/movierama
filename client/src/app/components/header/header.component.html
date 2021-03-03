@@ -1,11 +1,11 @@
-<h2 class="pull-left col-md-6 mt-4" [routerLink]="['/home']">MovieRama</h2>
-<div class="pull-right col-md-3 mt-4">
-	<ng-container *ngIf="!authService.getToken()">
+<h2 class="pull-left col-md-6 mt-4 logo" [routerLink]="['/home']">MovieRama</h2>
+<div class="pull-right mt-4 mr-4">
+	<ng-container *ngIf="!isLoggedIn">
 		<a [routerLink]="['/login']">Login </a>&nbsp;
 		<span class="badge badge-pill badge-primary p-2">Signup </span>
 	</ng-container>
-	<ng-container *ngIf="authService.getToken()">
-		<span>Welcome back <b>{{authService.getUser().email}}</b></span
+	<ng-container *ngIf="isLoggedIn">
+		<span>Welcome back <b>{{loggedinUserEmail}}</b></span
 		>&nbsp;&nbsp;
 		<span
 			class="badge badge-primary p-2"

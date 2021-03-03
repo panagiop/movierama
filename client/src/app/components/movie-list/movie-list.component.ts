@@ -83,6 +83,10 @@ export class MovieListComponent implements OnInit {
 		return false;
 	}
 
+	canBeTheFirstToVote(likedByIds?: string[], hatedByIds?: string[]): boolean {
+		return !likedByIds!.length && !hatedByIds!.length;
+	}
+
 	likeMovie(movieId: string = ''): void {
 		this.apiService.likeMovie(movieId).subscribe(
 			() => this.fetchMovies(),

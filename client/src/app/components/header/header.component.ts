@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -6,10 +7,20 @@ import { AuthService } from 'src/app/services/auth.service';
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
-	constructor(public authService: AuthService) {}
+export class HeaderComponent implements OnInit {
+	public isLoggedIn = false;
+	public loggedinUserEmail = '';
+
+	constructor(public authService: AuthService, private router: Router) {}
+
+	ngOnInit(): void {
+		this.isLoggedIn = !!this.authService.getToken();
+		this.loggedinUserEmail =
+			(this.authService.getUser() && this.authService.getUser().email) || '';
+	}
 
 	onLogout(): void {
 		this.authService.logout();
+		this.isLoggedIn = false;
 	}
 }

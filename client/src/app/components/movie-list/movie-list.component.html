@@ -1,77 +1,137 @@
 <app-header></app-header>
-<div class="pull-left mt-4 mb-4 col-md-12">
+<ng-container *ngIf="!movies">
+	<div class="pull-left col-md-12 mt-4">
+		<div class="alert alert-primary" role="alert">
+			<span
+				>Please add a new movie if you have already create a user visiting
+				<a [routerLink]="['/register']">Register</a> page or by
+				<a [routerLink]="['/login']">logging in</a></span
+			>
+		</div>
+	</div>
+</ng-container>
+<div *ngIf="movies" class="pull-left mt-4 mb-4 col-md-12">
 	<app-sorting [field]="field" [direction]="direction" (sort)="orderBy($event)">
 	</app-sorting>
 </div>
-<div>
-	<ng-container *ngIf="movies">
-		<ng-container *ngFor="let movie of movies">
-			<div class="card mt-4">
-				<h5 class="card-header">{{movie.name}}</h5>
-				<div class="card-body">
-					<p>
-						Posted by <b>{{movie.createdBy?.username}}</b>&nbsp;&nbsp;
-						{{movie.createdAt | calculateElapsedTime}}
-					</p>
-					<p class="card-text">{{movie.description}}</p>
-					<p
-						*ngIf="authService.getUser() && canUserVote(authService.getUser()._id, movie.createdBy._id)"
-						class="card-text"
+<ng-container *ngIf="movies">
+	<ng-container *ngFor="let movie of movies">
+		<div class="card mt-4">
+			<h5 class="card-header">{{movie.name}}</h5>
+			<div class="card-body">
+				<p>
+					Posted by <b>{{movie.createdBy?.username}}</b>&nbsp;&nbsp;
+					{{movie.createdAt | calculateElapsedTime}}
+				</p>
+				<p class="card-text">{{movie.description}}</p>
+				<p
+					*ngIf="authService.getUser()
+            && canUserVote(authService.getUser()._id, movie.createdBy._id)"
+					class="card-text"
+				>
+					<ng-container
+						*ngIf="canBeTheFirstToVote(movie.likedBy, movie.hatedBy)"
 					>
-						<ng-container
-							*ngIf="canLikeButtonBeEnabled(authService.getUser()._id, movie.likedBy)"
+						Be the first to vote for this movie:
+						<button
+							type="button"
+							class="btn btn-link"
+							(click)="likeMovie(movie._id)"
 						>
-							<button type="button" class="btn btn-link" (click)="likeMovie(movie._id)">
-								{{movie.likedBy?.length}} likes</button
-							>&nbsp;
-						</ng-container>
-						<ng-container
-							*ngIf="!canLikeButtonBeEnabled(authService.getUser()._id, movie.likedBy)"
+							Like</button
+						>&nbsp;|
+						<button
+							type="button"
+							class="btn btn-link"
+							(click)="hateMovie(movie._id)"
 						>
-							<span>
-								{{movie.likedBy?.length}} likes</span
-							>&nbsp;
-						</ng-container>
-						<ng-container
-							*ngIf="canHateButtonBeEnabled(authService.getUser()._id, movie.hatedBy)"
-						>
-							<button type="button" class="btn btn-link" (click)="hateMovie(movie._id)">
-								{{movie.hatedBy?.length}} hates</button
-							>&nbsp;
-						</ng-container>
-						<ng-container
-							*ngIf="!canHateButtonBeEnabled(authService.getUser()._id, movie.hatedBy)"
-						>
-							<span>
-								{{movie.hatedBy?.length}} hates</span
-							>&nbsp;
-						</ng-container>
-						<ng-container
-							*ngIf="hasUserLikedTheMovie(authService.getUser()._id, movie.likedBy)"
-						>
-							<span class="pull-right">
-								<span>You like this movie</span>&nbsp; |
-								<button type="button" class="btn btn-link" (click)="resetVote(movie._id)">Unlike</button>
-							</span>
-						</ng-container>
-						<ng-container
-							*ngIf="hasUserHatedTheMovie(authService.getUser()._id, movie.hatedBy)"
-						>
-							<span class="pull-right">
-								<span>You hate this movie</span>&nbsp; |
-								<button type="button" class="btn btn-link">Unhate</button>
-							</span>
-						</ng-container>
-					</p>
-					<p
-						*ngIf="!authService.getUser() || !canUserVote(authService.getUser() && authService.getUser()._id, movie.createdBy._id)"
-						class="card-text"
+							Hate
+						</button>
+					</ng-container>
+					<ng-container
+						*ngIf="canLikeButtonBeEnabled(authService.getUser()._id, movie.likedBy)
+              && canHateButtonBeEnabled(authService.getUser()._id, movie.hatedBy)
+              && !canBeTheFirstToVote(movie.likedBy, movie.hatedBy)"
 					>
-						<span>{{movie.likedBy?.length}} likes</span>&nbsp;&nbsp;
-						<span>{{movie.hatedBy?.length}} hates</span>
-					</p>
-				</div>
+						<button
+							type="button"
+							class="btn btn-link"
+							(click)="likeMovie(movie._id)"
+						>
+							{{movie.likedBy?.length}} likes</button
+						>&nbsp;
+						<button
+							type="button"
+							class="btn btn-link"
+							(click)="hateMovie(movie._id)"
+						>
+							{{movie.hatedBy?.length}} hates</button
+						>&nbsp;
+					</ng-container>
+					<ng-container
+						*ngIf="!canLikeButtonBeEnabled(authService.getUser()._id, movie.likedBy)
+              && canHateButtonBeEnabled(authService.getUser()._id, movie.hatedBy)"
+					>
+						<span> {{movie.likedBy?.length}} likes</span>&nbsp;
+						<button
+							type="button"
+							class="btn btn-link"
+							(click)="hateMovie(movie._id)"
+						>
+							{{movie.hatedBy?.length}} hates</button
+						>&nbsp;
+					</ng-container>
+					<ng-container
+						*ngIf="canLikeButtonBeEnabled(authService.getUser()._id, movie.likedBy)
+              && !canHateButtonBeEnabled(authService.getUser()._id, movie.hatedBy)"
+					>
+						<button
+							type="button"
+							class="btn btn-link"
+							(click)="likeMovie(movie._id)"
+						>
+							{{movie.likedBy?.length}} likes</button
+						>&nbsp; <span> {{movie.hatedBy?.length}} hates</span>&nbsp;
+					</ng-container>
+					<ng-container
+						*ngIf="hasUserLikedTheMovie(authService.getUser()._id, movie.likedBy)"
+					>
+						<span class="pull-right">
+							<span>You like this movie</span>&nbsp; |
+							<button
+								type="button"
+								class="btn btn-link"
+								(click)="resetVote(movie._id)"
+							>
+								Unlike
+							</button>
+						</span>
+					</ng-container>
+					<ng-container
+						*ngIf="hasUserHatedTheMovie(authService.getUser()._id, movie.hatedBy)"
+					>
+						<span class="pull-right">
+							<span>You hate this movie</span>&nbsp; |
+							<button
+								type="button"
+								class="btn btn-link"
+								(click)="resetVote(movie._id)"
+							>
+								Unhate
+							</button>
+						</span>
+					</ng-container>
+				</p>
+				<p
+					*ngIf="!authService.getUser()
+            || !canUserVote(authService.getUser()
+            && authService.getUser()._id, movie.createdBy._id)"
+					class="card-text"
+				>
+					<span>{{movie.likedBy?.length}} likes</span>&nbsp;&nbsp;
+					<span>{{movie.hatedBy?.length}} hates</span>
+				</p>
 			</div>
-		</ng-container>
+		</div>
 	</ng-container>
-</div>
+</ng-container>
