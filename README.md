@@ -44,7 +44,7 @@ ng serve
 * Create a user by clicking on Register button/menu item
 * Add a couple of movies by clicking the Add button (this button is visible only if a user is logged in)
 * Logout and create a second user
-* Now you can vote a movie created of the first or other user
+* Now you can vote a movie created by the first user
 * And so on...
 
 
