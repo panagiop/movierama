@@ -4,5 +4,5 @@ export default {
   mongo: {
     uri: process.env.MONGO_URL || 'mongodb://localhost:27017/movierama'
   },
-  jwtSecret: process.env.JWT_SECRET || '!@£%Tg#@!S56ds'
+  jwtSecret: process.env.JWT_SECRET || 'p@£%Tg#@!S56ds'
 };

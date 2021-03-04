@@ -12,10 +12,10 @@ const getUser = async (req, res, next) => {
 };
 
 const createUser = async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { email, username, password } = req.body;
 
   try {
-    const { token, user } = await create(User, username, email, password);
+    const { token, user } = await create(User, email, username, password);
     return res.json({ token, user });
   } catch (err) {
     return next(err);
