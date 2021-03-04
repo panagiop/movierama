@@ -21,6 +21,15 @@ const UserSchema = mongoose.Schema({
   }
 });
 
+UserSchema.index({ email: 1 });
+
 const UserModel = mongoose.model('User', UserSchema);
+
+UserModel.ensureIndexes((err) => {
+  if (err) {
+    return err;
+  }
+  return true;
+});
 
 export { UserModel };
