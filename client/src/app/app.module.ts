@@ -20,7 +20,7 @@ import { HeaderModule } from './components/header/header.module';
 		CalculateElapsedTime
 	],
 	imports: [
-    AppRoutingModule,
+		AppRoutingModule,
 		BrowserModule,
 		HttpClientModule,
 		ReactiveFormsModule,

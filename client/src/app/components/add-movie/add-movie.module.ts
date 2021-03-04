@@ -8,6 +8,12 @@ import routing from './add-movie.routing';
 
 @NgModule({
 	declarations: [AddMovieComponent],
-	imports: [routing, CommonModule, FormsModule, ReactiveFormsModule, HeaderModule]
+	imports: [
+		routing,
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		HeaderModule
+	]
 })
 export class AddMovieModule {}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Movie } from 'src/app/models/movie';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { getQueryParameter } from './utils';
 
 @Component({
 	selector: 'app-movie-list',
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class MovieListComponent implements OnInit {
 	public movies: any = [];
 	public field = 'createdAt';
-	public direction = 1;
+	public direction = -1;
 	public isLoggedIn = false;
 	public query = '';
 
@@ -27,23 +28,34 @@ export class MovieListComponent implements OnInit {
 	}
 
 	fetchMovies(queryParams: string): void {
+		console.log(this.query);
 		this.apiService.getAllMovies(queryParams).subscribe(
 			(movies: Movie[]) => {
 				this.movies = movies;
 			},
-			(err) => {
-				console.log(err);
-			}
+			(err) => console.log(err)
 		);
 	}
 
 	orderBy(sort: { field: string; direction: string }): void {
+		if (this.query.includes('createdBy')) {
+			const createdByValue = getQueryParameter('createdBy', this.query);
+			this.query = `?createdBy=${createdByValue}`.concat(
+				`&sortBy=${sort.field}&dir=${sort.direction}`
+			);
+			return this.fetchMovies(this.query);
+		}
 		this.query = `?sortBy=${sort.field}&dir=${sort.direction}`;
 		this.fetchMovies(this.query);
 	}
 
+	onClearFilters(): void {
+		this.query = `?sortBy=${this.field}&dir=${this.direction}`;
+		this.fetchMovies(this.query);
+	}
+
 	fetchMoviesByUserId(userId?: string): void {
-		this.query = `?createdBy=${userId}`;
+		this.query = this.query.concat(`&createdBy=${userId}`);
 		this.fetchMovies(this.query);
 	}
 
@@ -86,27 +98,21 @@ export class MovieListComponent implements OnInit {
 	likeMovie(movieId: string = ''): void {
 		this.apiService.likeMovie(movieId).subscribe(
 			() => this.fetchMovies(this.query),
-			(err) => {
-				console.log(err);
-			}
+			(err) => console.log(err)
 		);
 	}
 
 	hateMovie(movieId: string = ''): void {
 		this.apiService.hateMovie(movieId).subscribe(
 			() => this.fetchMovies(this.query),
-			(err) => {
-				console.log(err);
-			}
+			(err) => console.log(err)
 		);
 	}
 
 	resetVote(movieId: string = ''): void {
 		this.apiService.resetVote(movieId).subscribe(
 			() => this.fetchMovies(this.query),
-			(err) => {
-				console.log(err);
-			}
+			(err) => console.log(err)
 		);
 	}
 

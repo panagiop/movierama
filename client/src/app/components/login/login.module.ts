@@ -10,7 +10,7 @@ import { HeaderModule } from '../header/header.module';
 @NgModule({
 	declarations: [LoginComponent],
 	imports: [
-    routing,
+		routing,
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,

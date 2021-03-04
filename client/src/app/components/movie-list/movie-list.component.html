@@ -11,7 +11,7 @@
 	</div>
 </ng-container>
 <div *ngIf="movies" class="pull-left mt-4 mb-4 col-md-12">
-	<app-sorting [field]="field" [direction]="direction" (sort)="orderBy($event)">
+	<app-sorting [field]="field" [direction]="direction" (sort)="orderBy($event)" (clearFilters)="onClearFilters()">
 	</app-sorting>
 </div>
 <div *ngIf="isLoggedIn" class="pull-left col-md-12 mt-2 mb-4">
