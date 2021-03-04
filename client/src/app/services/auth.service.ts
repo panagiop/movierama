@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/movie';
 
-const AUTH_API = 'http://localhost:1234/api/v1/login';
+const AUTH_API_LOGIN = 'http://localhost:1234/api/v1/login';
+const AUTH_API_SIGNUP = 'http://localhost:1234/api/v1/users';
 
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,8 +24,24 @@ export class AuthService {
 		password: string;
 	}): Observable<any> {
 		return this.http.post(
-			AUTH_API,
+			AUTH_API_LOGIN,
 			{
+				email: credentials.email,
+				password: credentials.password
+			},
+			httpOptions
+		);
+	}
+
+	public signup(credentials: {
+		username: string;
+		email: string;
+		password: string;
+	}): Observable<any> {
+		return this.http.post(
+			AUTH_API_SIGNUP,
+			{
+				username: credentials.username,
 				email: credentials.email,
 				password: credentials.password
 			},

@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
+import { SignupComponent } from './components/signup/signup.component';
 import { AuthGuardService } from './services/auth.guard.service';
 
 const routes: Routes = [
 	{ path: 'home', component: MovieListComponent },
+  { path: 'signup', component: SignupComponent },
 	{
 		path: 'login',
 		loadChildren: () =>

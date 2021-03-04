@@ -1,5 +1,5 @@
-<app-header class="col-md-12"></app-header>
-<ng-container *ngIf="!movies">
+<app-header class="col-md-12" (logout)="onLogout($event)"></app-header>
+<ng-container *ngIf="movies && !movies.length">
 	<div class="pull-left col-md-12 mt-4">
 		<div class="alert alert-primary" role="alert">
 			<span
@@ -10,8 +10,13 @@
 		</div>
 	</div>
 </ng-container>
-<div *ngIf="movies" class="pull-left mt-4 mb-4 col-md-12">
-	<app-sorting [field]="field" [direction]="direction" (sort)="orderBy($event)" (clearFilters)="onClearFilters()">
+<div *ngIf="movies && movies.length" class="pull-left mt-4 mb-4 col-md-12">
+	<app-sorting
+		[field]="field"
+		[direction]="direction"
+		(sort)="orderBy($event)"
+		(clearFilters)="onClearFilters()"
+	>
 	</app-sorting>
 </div>
 <div *ngIf="isLoggedIn" class="pull-left col-md-12 mt-2 mb-4">
@@ -19,7 +24,7 @@
 		<span [routerLink]="['/add-movie']">New movie</span>
 	</button>
 </div>
-<ng-container *ngIf="movies">
+<ng-container *ngIf="movies && movies.length">
 	<ng-container *ngFor="let movie of movies; trackBy: trackByMovieId">
 		<div class="card mt-4">
 			<h5 class="card-header">{{movie.name}}</h5>

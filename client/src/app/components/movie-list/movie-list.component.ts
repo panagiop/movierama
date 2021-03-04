@@ -115,6 +115,10 @@ export class MovieListComponent implements OnInit {
 		);
 	}
 
+	onLogout(isLoggedIn: boolean): void {
+		this.isLoggedIn = isLoggedIn;
+	}
+
 	trackByMovieId(index: number, movie: Movie): any {
 		return movie._id;
 	}

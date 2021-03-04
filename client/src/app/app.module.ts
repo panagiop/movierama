@@ -11,13 +11,15 @@ import { CalculateElapsedTime } from './pipes/calculate-elapsed-time.pipe';
 
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
 import { HeaderModule } from './components/header/header.module';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		MovieListComponent,
 		SortingComponent,
-		CalculateElapsedTime
+		CalculateElapsedTime,
+		SignupComponent
 	],
 	imports: [
 		AppRoutingModule,

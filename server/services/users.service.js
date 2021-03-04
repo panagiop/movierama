@@ -31,7 +31,7 @@ const create = async (UserModel, email, username, password) => {
     }
   };
   const token = generateToken(payload);
-  return token;
+  return { token, user };
 };
 
 export { get, create };

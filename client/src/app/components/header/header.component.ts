@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 	styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+	@Output() logout = new EventEmitter();
 	public isLoggedIn = false;
 	public loggedinUserEmail = '';
 
@@ -21,5 +22,6 @@ export class HeaderComponent implements OnInit {
 	onLogout(): void {
 		this.authService.logout();
 		this.isLoggedIn = false;
+		this.logout.emit(this.isLoggedIn);
 	}
 }

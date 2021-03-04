@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-	selector: 'app-login',
-	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss']
+	selector: 'app-signup',
+	templateUrl: './signup.component.html',
+	styleUrls: ['./signup.component.scss']
 })
-export class LoginComponent implements OnInit {
-	public loginForm!: FormGroup;
+export class SignupComponent implements OnInit {
+	public signupForm!: FormGroup;
 	public isSubmitted = false;
 	public responseError = '';
 
@@ -24,30 +24,31 @@ export class LoginComponent implements OnInit {
 		if (token && !this.authService.isTokenExpired(token)) {
 			void this.router.navigate(['/']).then().catch();
 		}
-		this.loginForm = this.formBuilder.group({
-			email: ['', [Validators.required, Validators.email]],
+		this.signupForm = this.formBuilder.group({
+      username: ['',[Validators.required, Validators.minLength(2)]],
+			email: ['',[Validators.required, Validators.email]],
 			password: ['', [Validators.required, Validators.minLength(6)]]
 		});
 	}
 
 	get f(): any {
-		return this.loginForm.controls;
+		return this.signupForm.controls;
 	}
 
 	onSubmit(): void {
 		this.isSubmitted = true;
-		if (this.loginForm.invalid) {
+		if (this.signupForm.invalid) {
 			return;
 		}
 		this.authService
-			.login({
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-				email: this.loginForm.get('email')?.value,
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-				password: this.loginForm.get('password')?.value
+			.signup({
+        username: this.signupForm.get('username')?.value,
+				email: this.signupForm.get('email')?.value,
+				password: this.signupForm.get('password')?.value
 			})
 			.subscribe(
 				(data: { token: string; user: Record<string, never> }) => {
+          debugger
 					this.authService.saveToken(data.token);
 					this.authService.saveUser(data.user);
 					void this.router.navigate(['/']).then().catch();

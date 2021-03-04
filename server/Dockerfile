@@ -14,7 +14,6 @@ COPY        middlewares /srv/movierama/middlewares/
 COPY        models /srv/movierama/models/
 COPY        routes /srv/movierama/routes/
 COPY        services /srv/movierama/services/
-COPY        tests /srv/movierama/tests/
 
 RUN         yarn run build
 

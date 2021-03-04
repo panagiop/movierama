@@ -9,7 +9,7 @@ export class SortingComponent {
 	@Input() field = 'createdDate';
 	@Input() direction = 1;
 	@Output() sort = new EventEmitter();
-  @Output() clearFilters = new EventEmitter();
+	@Output() clearFilters = new EventEmitter();
 
 	orderBy(field: string): void {
 		this.direction = field === this.field ? -this.direction : 1;
@@ -17,7 +17,7 @@ export class SortingComponent {
 		this.sort.emit({ field: this.field, direction: this.direction });
 	}
 
-  onClearFilters(): void {
-    this.clearFilters.emit();
-  }
+	onClearFilters(): void {
+		this.clearFilters.emit();
+	}
 }

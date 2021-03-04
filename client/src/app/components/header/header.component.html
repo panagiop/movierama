@@ -2,7 +2,9 @@
 <div class="pull-right mt-4 mr-4">
 	<ng-container *ngIf="!isLoggedIn">
 		<a [routerLink]="['/login']">Login </a>&nbsp;
-		<span class="badge badge-pill badge-primary p-2">Signup </span>
+		<span class="badge badge-pill badge-primary p-2" [routerLink]="['/signup']"
+			>Signup
+		</span>
 	</ng-container>
 	<ng-container *ngIf="isLoggedIn">
 		<span>Welcome back <b>{{loggedinUserEmail}}</b></span
