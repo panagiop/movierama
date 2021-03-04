@@ -77,7 +77,11 @@ export class AuthService {
 	}
 
 	public isTokenExpired(token: string): boolean {
-		const expiryDate = token && JSON.parse(atob(token.split('.')[1])).exp;
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+		const splitToken: { exp: number } = (token &&
+			token.split('.') &&
+			JSON.parse(atob(token.split('.')[1]))) || { exp: 0 };
+		const expiryDate = splitToken.exp;
 		return Math.floor(new Date().getTime() / 1000) >= expiryDate;
 	}
 }

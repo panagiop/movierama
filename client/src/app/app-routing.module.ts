@@ -8,8 +8,7 @@ const routes: Routes = [
 	{
 		path: 'signup',
 		loadChildren: () =>
-			import('./components/signup/signup.module').then((m) => m.SignupModule),
-		canLoad: [AuthGuardService]
+			import('./components/signup/signup.module').then((m) => m.SignupModule)
 	},
 	{
 		path: 'login',

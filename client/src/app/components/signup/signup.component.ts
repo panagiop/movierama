@@ -41,8 +41,11 @@ export class SignupComponent implements OnInit {
 		}
 		this.authService
 			.signup({
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				username: this.signupForm.get('username')?.value,
-				email: this.signupForm.get('email')?.value,
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				email: this.signupForm.get('email')?.value || '',
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				password: this.signupForm.get('password')?.value
 			})
 			.subscribe(
