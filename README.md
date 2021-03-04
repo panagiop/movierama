@@ -4,6 +4,7 @@
 docker-compose up -d
 ```
 * Navigate to `http://localhost:8888/` to view the application.
+<br />
 
 ## How to run it (using development servers)
 ### DB
@@ -36,6 +37,15 @@ npm install
 ng serve
 ```
 * Visit http://localhost:4200 to view the app
+<br />
+
+
+## How to test it
+* Create a user by clicking on Register button/menu item
+* Add a couple of movies by clicking the Add button (this button is visible only if a user is logged in)
+* Logout and create a second user
+* Now you can vote a movie created of the first or other user
+* And so on...
 
 
 [docker]: <https://www.docker.com/>  
