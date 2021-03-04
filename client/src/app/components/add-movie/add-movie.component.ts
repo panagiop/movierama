@@ -5,8 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 
 @Component({
 	selector: 'app-add-movie',
-	templateUrl: './add-movie.component.html',
-	styleUrls: ['./add-movie.component.scss']
+	templateUrl: './add-movie.component.html'
 })
 export class AddMovieComponent implements OnInit {
 	public addForm!: FormGroup;

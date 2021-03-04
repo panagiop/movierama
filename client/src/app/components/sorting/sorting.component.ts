@@ -1,9 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	Output
+} from '@angular/core';
 
 @Component({
 	selector: 'app-sorting',
 	templateUrl: './sorting.component.html',
-	styleUrls: ['./sorting.component.scss']
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SortingComponent {
 	@Input() field = 'createdDate';

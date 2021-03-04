@@ -5,8 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
 	selector: 'app-signup',
-	templateUrl: './signup.component.html',
-	styleUrls: ['./signup.component.scss']
+	templateUrl: './signup.component.html'
 })
 export class SignupComponent implements OnInit {
 	public signupForm!: FormGroup;
@@ -25,8 +24,8 @@ export class SignupComponent implements OnInit {
 			void this.router.navigate(['/']).then().catch();
 		}
 		this.signupForm = this.formBuilder.group({
-      username: ['',[Validators.required, Validators.minLength(2)]],
-			email: ['',[Validators.required, Validators.email]],
+			username: ['', [Validators.required, Validators.minLength(2)]],
+			email: ['', [Validators.required, Validators.email]],
 			password: ['', [Validators.required, Validators.minLength(6)]]
 		});
 	}
@@ -42,13 +41,12 @@ export class SignupComponent implements OnInit {
 		}
 		this.authService
 			.signup({
-        username: this.signupForm.get('username')?.value,
+				username: this.signupForm.get('username')?.value,
 				email: this.signupForm.get('email')?.value,
 				password: this.signupForm.get('password')?.value
 			})
 			.subscribe(
 				(data: { token: string; user: Record<string, never> }) => {
-          debugger
 					this.authService.saveToken(data.token);
 					this.authService.saveUser(data.user);
 					void this.router.navigate(['/']).then().catch();

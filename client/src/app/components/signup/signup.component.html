@@ -9,7 +9,7 @@
 <div class="row col-md-12 h-100 justify-content-center align-items-center">
 	<div class="col-lg-3 p-3 form-container">
 		<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
+			<div class="form-group">
 				<input
 					type="text"
 					formControlName="username"
@@ -62,7 +62,7 @@
 				</div>
 			</div>
 			<div class="text-center float-right">
-        <button class="btn btn-secondary mr-3" [routerLink]="['/home']">
+				<button class="btn btn-secondary mr-3" [routerLink]="['/home']">
 					Cancel
 				</button>
 				<button class="btn btn-success" [disabled]="signupForm.invalid">

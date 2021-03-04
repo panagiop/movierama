@@ -6,8 +6,7 @@ import { getQueryParameter } from './utils';
 
 @Component({
 	selector: 'app-movie-list',
-	templateUrl: './movie-list.component.html',
-	styleUrls: ['./movie-list.component.scss']
+	templateUrl: './movie-list.component.html'
 })
 export class MovieListComponent implements OnInit {
 	public movies: any = [];
