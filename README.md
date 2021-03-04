@@ -6,7 +6,7 @@ docker-compose up -d
 * Navigate to `http://localhost:8888/` to view the application.
 
 ## How to run it (using development servers)
-### mongoDB
+### DB
 * Make sure you have [mongoDB] installed. 
 * After, run the following command in terminal (`path_to_data` and `db_folder` folders should be already created):
 ```sh
