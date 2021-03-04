@@ -7,8 +7,9 @@
 	{{ responseError }}
 </div>
 <div class="row col-md-12 h-100 justify-content-center align-items-center">
-	<div class="col-lg-3 p-3 form-container">
+	<div class="col-lg-3 p-3">
 		<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+      <h2 class="mb-4">Add movie</h2>
 			<div class="form-group">
         <label for="name">Name</label>
 				<input

@@ -12,7 +12,7 @@ export class CalculateElapsedTime implements PipeTransform {
 			if (Math.ceil(numberOfDays * 24) > 1) {
 				return `${Math.ceil(numberOfDays * 24)} hours ago`;
 			}
-			return `${Math.ceil(numberOfDays * 24)} hour ago`;
+			return `${Math.ceil(numberOfDays * 24 * 60)} min ago`;
 		}
 		if (Math.floor(numberOfDays) === 1) {
 			return `${Math.floor(numberOfDays)} day ago`;
