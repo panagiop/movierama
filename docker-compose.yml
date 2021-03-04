@@ -1,0 +1,30 @@
+version: '3'
+
+networks:
+  my-net:
+
+services:
+  mongo-database:
+    image: "mongo:latest"
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo_data:/data/db
+    networks:
+      - my-net
+  server:
+    build: ./server
+    ports:
+      - 1234:1234
+    environment:
+      - MONGO_URL=mongodb://mongo-database:27017/movierama-db
+    depends_on:
+      - mongo-database
+    networks:
+      - my-net
+  client:
+    build: ./client
+    ports:
+      - 8888:80
+    networks:
+      - my-net

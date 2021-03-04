@@ -28,7 +28,6 @@ export class MovieListComponent implements OnInit {
 	}
 
 	fetchMovies(queryParams: string): void {
-		console.log(this.query);
 		this.apiService.getAllMovies(queryParams).subscribe(
 			(movies: Movie[]) => {
 				this.movies = movies;

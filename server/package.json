@@ -3,14 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "scripts": {
-    "dev": "NODE_ENV=development nodemon --exec babel-node app.js",
-    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
     }
+  },
+  "scripts": {
+    "clean": "rm -rf build && mkdir build",
+    "build-server": "babel --out-dir ./build . --source-maps --copy-files --ignore 'node_modules/**/*.js'",
+    "build": "npm run clean && npm run build-server",
+    "start": "pm2 start ./build/app.js -i ${NODE_PROCESSES} --no-daemon",
+    "dev": "NODE_ENV=development nodemon --exec babel-node app.js",
+    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix"
   },
   "author": "",
   "license": "ISC",
