@@ -1,7 +1,7 @@
 <app-header class="col-md-12" (logout)="onLogout($event)"></app-header>
 <ng-container *ngIf="movies && !movies.length">
 	<div class="pull-left col-md-12 mt-4">
-		<div class="alert alert-primary" role="alert">
+		<div *ngIf="!isLoggedIn" class="alert alert-primary" role="alert">
 			<span
 				>Please add a new movie if you have already create a user visiting
 				<a [routerLink]="['/signup']">Register</a> page or by

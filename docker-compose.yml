@@ -17,7 +17,7 @@ services:
     ports:
       - 1234:1234
     environment:
-      - MONGO_URL=mongodb://mongo-database:27017/movierama-db
+      - MONGO_URL=mongodb://mongo-database:27017/movierama-panagiop-db
       - JWT_SECRET=p@£%Tg#@!S56ds
     depends_on:
       - mongo-database
